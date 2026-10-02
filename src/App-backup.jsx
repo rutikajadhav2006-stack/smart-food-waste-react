@@ -28,6 +28,7 @@ function App() {
 
   const [search, setSearch] = useState("");
 const [statusFilter, setStatusFilter] = useState("All");
+const [editId, setEditId] = useState(null);
 
 useEffect(() => {
   localStorage.setItem(
@@ -41,20 +42,46 @@ const addFood = () => {
       alert("Please fill Food Name, Quantity, Location and Expiry Date.");
       return;
     }
+if (contactNumber && contactNumber.length !== 10) {
+  alert("Contact Number must be exactly 10 digits.");
+  return;
+}    
 
-    const newFood = {
-      id: Date.now(),
-      foodName,
-      quantity,
-      location,
-      donorName,
-      contactNumber,
-      category,
-      expiryDate,
-      status,
-    };
+    if (editId !== null) {
+  setFoodItems(
+    foodItems.map((food) =>
+      food.id === editId
+        ? {
+            ...food,
+            foodName,
+            quantity,
+            location,
+            donorName,
+            contactNumber,
+            category,
+            expiryDate,
+            status,
+          }
+        : food
+    )
+  );
 
-    setFoodItems([...foodItems, newFood]);
+  setEditId(null);
+} else {
+  const newFood = {
+    id: Date.now(),
+    foodName,
+    quantity,
+    location,
+    donorName,
+    contactNumber,
+    category,
+    expiryDate,
+    status,
+  };
+
+  setFoodItems([...foodItems, newFood]);
+}
 
     setFoodName("");
     setQuantity("");
@@ -69,6 +96,19 @@ const addFood = () => {
   const deleteFood = (id) => {
     setFoodItems(foodItems.filter((food) => food.id !== id));
   };
+
+  const editFood = (food) => {
+  setFoodName(food.foodName);
+  setQuantity(food.quantity);
+  setLocation(food.location);
+  setDonorName(food.donorName);
+  setContactNumber(food.contactNumber);
+  setCategory(food.category);
+  setExpiryDate(food.expiryDate);
+  setStatus(food.status);
+
+  setEditId(food.id);
+};
 
   // Dashboard calculations
   const foodCount = foodItems.length;
@@ -401,13 +441,16 @@ const addFood = () => {
           />
 
           <input
-            type="text"
-            placeholder="Contact Number"
-            value={contactNumber}
-            onChange={(e) =>
-              setContactNumber(e.target.value)
-            }
-          />
+  type="tel"
+  placeholder="Contact Number"
+  value={contactNumber}
+  maxLength="10"
+  onChange={(e) =>
+    setContactNumber(
+      e.target.value.replace(/\D/g, "")
+    )
+  }
+/>
 
           <select
             value={category}
@@ -442,8 +485,10 @@ const addFood = () => {
             type="button"
             onClick={addFood}
           >
-            Add Food
-          </button>
+            {editId !==null
+              ?"Update Food"
+              :"Add Food"}
+          </button>    
 
 
           <h3>
@@ -555,6 +600,12 @@ const addFood = () => {
 
                   Status: {food.status}
 
+                  <button
+  type="button"
+  onClick={() => editFood(food)}
+>
+  Edit
+</button>
                   <button
                     type="button"
                     onClick={() =>
