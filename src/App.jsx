@@ -568,38 +568,28 @@ if (contactNumber && contactNumber.length !== 10) {
               filteredFood.map((food) => (
                 <li key={food.id}>
 
-                  <strong>
-                    {food.foodName}
-                  </strong>
+                  <strong>{food.foodName}</strong>
 
-                  <br />
+<br />
+Quantity: {food.quantity}
 
-                  Quantity: {food.quantity}
+<br />
+Location: {food.location}
 
-                  <br />
+<br />
+Donor: {food.donorName || "N/A"}
 
-                  Location: {food.location}
+<br />
+Contact: {food.contactNumber || "N/A"}
 
-                  <br />
+<br />
+Category: {food.category}
 
-                  Donor: {food.donorName || "N/A"}
+<br />
+Expiry Date: {food.expiryDate}
 
-                  <br />
-
-                  Contact: {food.contactNumber || "N/A"}
-
-                  <br />
-
-                  Category: {food.category}
-
-                  <br />
-
-                  Expiry Date: {food.expiryDate}
-
-                  <br />
-
-                  Status: {food.status}
-
+<br />
+Status: {food.status}
                   <button
   type="button"
   onClick={() => editFood(food)}

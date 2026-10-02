@@ -255,18 +255,19 @@ button:hover {
 #foodList {
     list-style: none;
     padding: 0;
-    max-width: 900px;
+    max-width: 700px;
     margin: 25px auto;
 }
 
 #foodList li {
     background: white;
-    padding: 22px;
-    margin: 15px 0;
-    border-radius: 15px;
+    padding: 12px;
+    margin: 10px 0;
+    border-radius: 12px;
     border-left: 6px solid #43a047;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.08);
-    line-height: 1.8;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.08);
+    line-height: 1.2;
+    font-size:15px;
     text-align: left;
     transition: 0.3s;
 }
@@ -341,7 +342,7 @@ button:hover {
 }
 
 .dashboard-card {
-    min-height: 180px;
+    
 }  
 
 /* =========================================
